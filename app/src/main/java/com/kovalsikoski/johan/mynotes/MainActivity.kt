@@ -20,14 +20,12 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        realm = Realm.getDefaultInstance()
+
         initRecyclerView()
         initFab()
+        loadNotesFromRealm()
 
-    }
-
-    override fun onResume() {
-        realm = Realm.getDefaultInstance()
-        super.onResume()
     }
 
     override fun onDestroy() {
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
     private fun initRecyclerView(){
         val recyclerView = notesRecyclerView
-        adapter = MyNotesAdapter(myNotesList, this)
+        adapter = MyNotesAdapter(myNotesList, this, realm)
         recyclerView.adapter = adapter
 
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
@@ -74,15 +72,15 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
     //REGION OVERRIDED METHODS
 
     override fun onNoteInputDialogPositiveButtonClicked(dialog: DialogInterface?, title: String, description: String) {
-        adapter.newNote(Note(title, description))
+        val realmId = realm.where(Note::class.java).max("id")
+        val nextId: Int
 
-        realm.beginTransaction()
-
-        val note: Note = realm.createObject(Note::class.java)
-        note.title = title
-        note.description = description
-
-        realm.commitTransaction()
+        nextId = if(realmId==null){
+            0
+        } else {
+            realmId.toInt() + 1
+        }
+        adapter.newNote(Note(nextId,title, description))
     }
 
     override fun onNoteInputDialogNegativeButtonClicked(dialog: DialogInterface?) {

@@ -7,10 +7,10 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
-import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
 
-class NoteInputDialog private constructor() : DialogFragment() {
+class NoteInputDialog: DialogFragment() {
 
     internal lateinit var parentActivity : FragmentActivity
     private lateinit var positiveButtonDescription: String
@@ -21,7 +21,7 @@ class NoteInputDialog private constructor() : DialogFragment() {
 
     private lateinit var noteInputDialogListener: NoteInputDialogListener
 
-    lateinit var alertDialog: AlertDialog
+    private lateinit var alertDialog: AlertDialog
 
     interface NoteInputDialogListener {
 
@@ -56,7 +56,7 @@ class NoteInputDialog private constructor() : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val dialogView = LayoutInflater.from(parentActivity).inflate(R.layout.custom_input_dialog, null)
+        val dialogView = View.inflate(context,R.layout.custom_input_dialog, null)
 
         val alertDialogBuilder = AlertDialog.Builder(parentActivity)
 
@@ -66,7 +66,7 @@ class NoteInputDialog private constructor() : DialogFragment() {
 
         descriptionEditText = dialogView.findViewById(R.id.descriptionEditText)
 
-        alertDialogBuilder.setPositiveButton("Salvar") { dialog, which ->
+        alertDialogBuilder.setPositiveButton("Salvar") { dialog, _ ->
 
             val title = titleEditText.text.toString()
 
@@ -75,7 +75,7 @@ class NoteInputDialog private constructor() : DialogFragment() {
             noteInputDialogListener.onNoteInputDialogPositiveButtonClicked(dialog, title, description)
         }
 
-        alertDialogBuilder.setNegativeButton("Cancelar") { dialog, which ->
+        alertDialogBuilder.setNegativeButton("Cancelar") { dialog, _ ->
 
             noteInputDialogListener.onNoteInputDialogNegativeButtonClicked(dialog)
 

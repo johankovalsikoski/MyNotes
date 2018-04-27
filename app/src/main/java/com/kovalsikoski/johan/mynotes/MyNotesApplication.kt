@@ -4,6 +4,7 @@ import android.app.Application
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
+@Suppress("unused")
 class MyNotesApplication : Application() {
 
     override fun onCreate() {

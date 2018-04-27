@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
     private val myNotesList: MutableList<Note> = mutableListOf()
 
-    lateinit var adapter: MyNotesAdapter
+    private lateinit var adapter: MyNotesAdapter
     lateinit var realm: Realm
 
     //REGION LIFE CYCLE

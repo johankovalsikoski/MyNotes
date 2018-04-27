@@ -25,7 +25,7 @@ class MyNotesAdapter (private  val notesList: MutableList<Note>,
         notifyDataSetChanged()
     }
 
-    fun removeNote(position: Int, id: Int){
+    private fun removeNote(position: Int, id: Int){
         notesList.removeAt(position)
 
         realm.beginTransaction()
@@ -51,7 +51,7 @@ class MyNotesAdapter (private  val notesList: MutableList<Note>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val note = notesList[position]
-        holder?.let {
+        holder.let {
             it.bindView(note)
 
             it.itemView.setOnLongClickListener {

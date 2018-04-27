@@ -49,7 +49,7 @@ class NoteInputDialog: DialogFragment() {
 
         try {
             noteInputDialogListener = context as NoteInputDialogListener
-        } catch (e: ClassCastException) {
+        } catch (e: Throwable) {
             throw ClassCastException(context.toString() + " must implement NoteInputDialogListener.")
         }
     }

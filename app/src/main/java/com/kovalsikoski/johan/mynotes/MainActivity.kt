@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
     private lateinit var adapter: MyNotesAdapter
     private lateinit var realm: Realm
+    private lateinit var user: String
 
     //REGION LIFE CYCLE
 
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
         setContentView(R.layout.activity_main)
 
         realm = Realm.getDefaultInstance()
+
+        user = intent.extras.getString("user")
 
         initRecyclerView()
         initFab()
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
                 val result = realm.where(NoteModel::class.java)
                         .equalTo("id",id)
                         .and()
-                        .equalTo("user", "") //implementar user
+                        .equalTo("user", user) //implementar user
                         .findAll()
 
                 result.deleteAllFromRealm()
@@ -80,7 +83,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
     private fun loadNotesFromRealm(){
         val allNotes = realm.where(NoteModel::class.java)
-                .equalTo("user", "").findAll() //implementar user
+                .equalTo("user", user).findAll()
         allNotes.forEach {
             notesList.add(it)
         }
@@ -91,9 +94,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
     //REGION OVERRIDED METHODS
 
     override fun onNoteInputDialogPositiveButtonClicked(dialog: DialogInterface?, title: String, description: String) {
-        val realmId = realm.where(NoteModel::class.java)
-                .equalTo("user", "")//implementar user
-                .max("id")
+        val realmId = realm.where(NoteModel::class.java).max("id")
         val nextId: Int
 
         nextId = if(realmId==null){
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
         realm.beginTransaction()
         val noteObject = realm.createObject(NoteModel::class.java, nextId)
-        noteObject.user = "" //implementar user
+        noteObject.user = user
         noteObject.title = title
         noteObject.description = description
         realm.commitTransaction()

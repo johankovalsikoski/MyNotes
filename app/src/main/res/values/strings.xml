@@ -14,4 +14,5 @@
     <string name="btn_register">Registrar</string>
     <string name="et_tip">Dica de senha</string>
     <string name="tv_welcome_register">Registre-se*</string>
+    <string name="tv_warning">*os dados serão salvos em seu dispositivo</string>
 </resources>

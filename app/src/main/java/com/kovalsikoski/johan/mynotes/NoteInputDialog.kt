@@ -62,9 +62,9 @@ class NoteInputDialog: DialogFragment() {
 
         alertDialogBuilder.setView(dialogView)
 
-        titleEditText = dialogView.findViewById(R.id.titleEditText)
+        titleEditText = dialogView.findViewById(R.id.tv_title)
 
-        descriptionEditText = dialogView.findViewById(R.id.descriptionEditText)
+        descriptionEditText = dialogView.findViewById(R.id.et_description)
 
         alertDialogBuilder.setPositiveButton("Salvar") { dialog, _ ->
 

@@ -5,17 +5,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.realm.Realm
 import kotlinx.android.synthetic.main.cardview_note.view.*
 
-class MyNotesAdapter (private  val notesList: MutableList<Note>, private val context: Context,
-                      private val realm: Realm, private val listenerNoteInterface: NoteInterface) : RecyclerView.Adapter<MyNotesAdapter.ViewHolder>() {
+class MyNotesAdapter (private  val notesList: MutableList<Note>,
+                      private val context: Context,
+                      private val listenerNoteInterface: NoteInterface) : RecyclerView.Adapter<MyNotesAdapter.ViewHolder>() {
 
     fun removeNoteFromAdapterByPosition(position: Int){
         notesList.removeAt(position)
 
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
+    }
+
+    fun clear(){
+        notesList.clear()
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = notesList.size
@@ -34,14 +39,21 @@ class MyNotesAdapter (private  val notesList: MutableList<Note>, private val con
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bindView(note: Note, position: Int, listenerNoteInterface: NoteInterface) {
-            val title = itemView.titleCardViewTextView
-            val description = itemView.descriptionCardViewTextView
+
+            val title = itemView.til_title
+            val description = itemView.tv_description
+            val deleteItem = itemView.iv_delete
 
             title.text = note.title
             title.contentDescription = note.title
 
             description.text = note.description
             description.contentDescription = note.description
+
+            deleteItem.setOnClickListener {
+                listenerNoteInterface.removeNoteFromRealmById(note.id)
+                listenerNoteInterface.removeNoteFromAdapterByPosition(position)
+            }
         }
     }
 }

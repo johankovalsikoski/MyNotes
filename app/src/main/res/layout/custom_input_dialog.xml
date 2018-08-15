@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/titleTextInputLayout"
+        android:id="@+id/til_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -17,10 +17,10 @@
         app:layout_constraintStart_toStartOf="parent" >
 
         <EditText
-            android:id="@+id/titleEditText"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Título"
+            android:hint="@string/et_title_description"
             android:inputType="text"
             android:maxLength="30"
             android:maxLines="1"
@@ -29,7 +29,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/descriptionTextInputLayout"
+        android:id="@+id/til_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -38,13 +38,13 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextInputLayout">
+        app:layout_constraintTop_toBottomOf="@id/til_title">
 
         <EditText
-            android:id="@+id/descriptionEditText"
+            android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descrição da nota"
+            android:hint="@string/et_description_description"
             android:inputType="text"
             android:maxLength="256"
             android:maxLines="5"

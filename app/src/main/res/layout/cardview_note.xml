@@ -10,71 +10,19 @@
     android:layout_marginRight="8dp"
     app:cardCornerRadius="15dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/actionLayout"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_gravity="top">
-
-        <TextView
-            android:id="@+id/edit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Editar"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="@drawable/custom_cardview_edit"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/remove"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/remove"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Remover"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:background="@drawable/custom_cardview_remove"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageView
-            android:id="@+id/dunno"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:background="@drawable/custom_cardview_sound"
-            android:src="@android:drawable/ic_lock_silent_mode_off"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/informationLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
         android:background="@drawable/custom_cardview_item_background"
-        android:padding="6dp"
-        android:layout_gravity="bottom">
+        android:padding="6dp">
 
         <TextView
-            android:id="@+id/titleCardViewTextView"
-            android:layout_width="match_parent"
+            android:id="@+id/til_title"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:text="TÍTULO"
+            android:contentDescription="@string/et_title_description"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -83,13 +31,23 @@
             android:background="@drawable/custom_cardview_elements"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toStartOf="@id/iv_delete"/>
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/description_delete"
+            android:src="@android:drawable/ic_menu_delete"
+            app:layout_constraintTop_toTopOf="@id/til_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/til_title"/>
 
         <TextView
-            android:id="@+id/descriptionCardViewTextView"
+            android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="Descrição"
+            android:contentDescription="@string/et_description_description"
             android:textSize="14sp"
             android:textColor="@color/black"
             android:padding="8dp"
@@ -97,7 +55,7 @@
             android:maxEms="256"
             android:layout_marginTop="8dp"
             android:background="@drawable/custom_cardview_elements"
-            app:layout_constraintTop_toBottomOf="@id/titleCardViewTextView"
+            app:layout_constraintTop_toBottomOf="@id/til_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

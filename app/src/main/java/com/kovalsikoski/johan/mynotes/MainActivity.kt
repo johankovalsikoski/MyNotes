@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
     private fun initRecyclerView(){
         val recyclerView = notesRecyclerView
-        adapter = MyNotesAdapter(notesList, this, realm, object : NoteInterface{
+        adapter = MyNotesAdapter(notesList, this, object : NoteInterface{
+
             override fun removeNoteFromRealmById(id: Int) {
                 realm.beginTransaction()
 
@@ -54,11 +55,11 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
             override fun removeNoteFromAdapterByPosition(position: Int) {
                 adapter.removeNoteFromAdapterByPosition(position)
             }
-        })
-        recyclerView.adapter = adapter
 
-        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.layoutManager = layoutManager
+        })
+
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
     }
 
     private fun initFab(){
@@ -102,6 +103,9 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
         noteObject.description = description
         realm.commitTransaction()
 
+        notesList.clear()
+        adapter.clear()
+        loadNotesFromRealm()
     }
 
     override fun onNoteInputDialogNegativeButtonClicked(dialog: DialogInterface?) {

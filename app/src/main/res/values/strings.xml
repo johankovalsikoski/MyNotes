@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">My Notes</string>
+    <string name="app_name">Minhas Notas</string>
+    <string name="description_delete">Deletar nota</string>
+    <string name="description_fab">Criar nova nota de texto</string>
+    <string name="et_description_description">Descrição</string>
+    <string name="et_title_description">Título</string>
 </resources>

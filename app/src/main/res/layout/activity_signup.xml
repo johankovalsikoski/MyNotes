@@ -69,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/et_tip"
+            android:inputType="text"
             android:gravity="center"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -104,13 +105,12 @@
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintTop_toBottomOf="@id/til_password"/>
 
-
     <TextView
         android:id="@+id/tv_slogan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="*os dados serão salvos em seu dispositivo"
-        android:contentDescription="@string/tv_slogan"
+        android:text="@string/tv_warning"
+        android:contentDescription="@string/tv_warning"
         android:textAlignment="center"
         android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"

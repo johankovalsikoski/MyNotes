@@ -9,10 +9,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListener {
 
-    private val myNotesList: MutableList<Note> = mutableListOf()
+    private val notesList: MutableList<Note> = mutableListOf()
 
     private lateinit var adapter: MyNotesAdapter
-    lateinit var realm: Realm
+    private lateinit var realm: Realm
 
     //REGION LIFE CYCLE
 
@@ -39,7 +39,22 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
 
     private fun initRecyclerView(){
         val recyclerView = notesRecyclerView
-        adapter = MyNotesAdapter(myNotesList, this, realm)
+        adapter = MyNotesAdapter(notesList, this, realm, object : NoteInterface{
+            override fun removeNoteFromRealmById(id: Int) {
+                realm.beginTransaction()
+
+                val result = realm.where(Note::class.java)
+                        .equalTo("id",id)
+                        .findAll()
+
+                result.deleteAllFromRealm()
+                realm.commitTransaction()
+            }
+
+            override fun removeNoteFromAdapterByPosition(position: Int) {
+                adapter.removeNoteFromAdapterByPosition(position)
+            }
+        })
         recyclerView.adapter = adapter
 
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
@@ -63,7 +78,7 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
     private fun loadNotesFromRealm(){
         val allNotes = realm.where(Note::class.java).findAll()
         allNotes.forEach {
-            adapter.newNote(it)
+            notesList.add(it)
         }
     }
 
@@ -80,7 +95,13 @@ class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListene
         } else {
             realmId.toInt() + 1
         }
-        adapter.newNote(Note(nextId,title, description))
+
+        realm.beginTransaction()
+        val noteObject = realm.createObject(Note::class.java, nextId)
+        noteObject.title = title
+        noteObject.description = description
+        realm.commitTransaction()
+
     }
 
     override fun onNoteInputDialogNegativeButtonClicked(dialog: DialogInterface?) {

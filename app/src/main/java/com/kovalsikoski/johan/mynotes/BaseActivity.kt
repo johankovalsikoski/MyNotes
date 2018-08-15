@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.FrameLayout
 import kotlinx.android.synthetic.main.activity_base.*
 
-class ActivityBase : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
     private lateinit var mDrawerLayout: DrawerLayout
 
@@ -23,6 +23,6 @@ class ActivityBase : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         title = null
-        toolbar_title.text = "Minhas Notas :)"
+        toolbar_title.text = "Suas notas :)"
     }
 }

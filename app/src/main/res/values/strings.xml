@@ -4,4 +4,11 @@
     <string name="description_fab">Criar nova nota de texto</string>
     <string name="et_description_description">Descrição</string>
     <string name="et_title_description">Título</string>
+    <string name="et_user">E-mail</string>
+    <string name="et_password">Senha</string>
+    <string name="btn_login">Entrar</string>
+    <string name="tv_registrar">Registrar</string>
+    <string name="tv_recuperar">Recuperar</string>
+    <string name="tv_slogan">Organize sua vida, tome notas</string>
+    <string name="tv_welcome">Bem-vindo!</string>
 </resources>

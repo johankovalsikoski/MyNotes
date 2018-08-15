@@ -11,4 +11,7 @@
     <string name="tv_recuperar">Recuperar</string>
     <string name="tv_slogan">Organize sua vida, tome notas</string>
     <string name="tv_welcome">Bem-vindo!</string>
+    <string name="btn_register">Registrar</string>
+    <string name="et_tip">Dica de senha</string>
+    <string name="tv_welcome_register">Registre-se*</string>
 </resources>

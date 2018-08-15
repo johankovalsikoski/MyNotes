@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
     private fun isValidEmail(): Boolean = et_user.text.toString().isNotBlank()
     private fun isValidPassword(): Boolean = et_password.text.toString().isNotBlank()
 
-    private fun isValidEmailPattern(email: String): Boolean =
+    fun isValidEmailPattern(email: String): Boolean =
             Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)\$",
                     Pattern.CASE_INSENSITIVE).matcher(email).matches()
 

@@ -2,12 +2,11 @@ package com.kovalsikoski.johan.mynotes
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), NoteInputDialog.NoteInputDialogListener {
+class MainActivity : BaseActivity(), NoteInputDialog.NoteInputDialogListener {
 
     private val notesList: MutableList<NoteModel> = mutableListOf()
 

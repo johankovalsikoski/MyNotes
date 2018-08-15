@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.cardview_note.view.*
 
-class MyNotesAdapter (private  val notesList: MutableList<Note>,
+class MyNotesAdapter (private  val notesList: MutableList<NoteModel>,
                       private val context: Context,
                       private val listenerNoteInterface: NoteInterface) : RecyclerView.Adapter<MyNotesAdapter.ViewHolder>() {
 
@@ -38,20 +38,20 @@ class MyNotesAdapter (private  val notesList: MutableList<Note>,
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bindView(note: Note, position: Int, listenerNoteInterface: NoteInterface) {
+        fun bindView(noteModel: NoteModel, position: Int, listenerNoteInterface: NoteInterface) {
 
             val title = itemView.til_title
             val description = itemView.tv_description
             val deleteItem = itemView.iv_delete
 
-            title.text = note.title
-            title.contentDescription = note.title
+            title.text = noteModel.title
+            title.contentDescription = noteModel.title
 
-            description.text = note.description
-            description.contentDescription = note.description
+            description.text = noteModel.description
+            description.contentDescription = noteModel.description
 
             deleteItem.setOnClickListener {
-                listenerNoteInterface.removeNoteFromRealmById(note.id)
+                listenerNoteInterface.removeNoteFromRealmById(noteModel.id)
                 listenerNoteInterface.removeNoteFromAdapterByPosition(position)
             }
         }

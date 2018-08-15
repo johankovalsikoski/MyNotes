@@ -22,13 +22,22 @@ class LoginActivity : AppCompatActivity() {
         tv_recover.setOnClickListener {
             if(isValidEmail()){
                 if(isValidEmailPattern(et_user.text.toString())){
-
+                    val result = realm.where(UserModel::class.java)
+                            .equalTo("email", et_user.text.toString())
+                            .findFirst()
+                    if(result!= null){
+                        Toast.makeText(this, "Sua dica: ${result.passwordTip}", Toast.LENGTH_LONG).show()
+                    }
                 } else {
                     Toast.makeText(this, "Formato de e-mail inválido", Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "Informe o e-mail para receber a dica de sua senha", Toast.LENGTH_LONG).show()
             }
+        }
+
+        tv_register.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
         }
 
         btn_login.setOnClickListener {
@@ -48,8 +57,9 @@ class LoginActivity : AppCompatActivity() {
                         .equalTo("password", et_password.text.toString())
                         .findFirst()
 
+                realm.commitTransaction()
                 if (result != null) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java).putExtra("user", result.uuid))
                     finish()
                 } else {
                     Toast.makeText(this, "Usuário ou senha inválidos", Toast.LENGTH_LONG).show()

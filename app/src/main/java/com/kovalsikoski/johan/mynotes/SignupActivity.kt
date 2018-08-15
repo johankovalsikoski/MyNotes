@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_signup.*
+import java.util.*
 import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
@@ -26,15 +27,29 @@ class SignupActivity : AppCompatActivity() {
     private fun register() {
         if (checkAllFields()) {
             if (isValidEmailPattern(et_user.text.toString())) {
+
+                val uuid = UUID.randomUUID().toString()
+
                 realm.beginTransaction()
 
-                val userObject = realm.createObject(UserModel::class.java)
+                val result = realm.where(UserModel::class.java)
+                        .equalTo("email", et_user.text.toString())
+                        .findFirst()
 
-                userObject.email = et_user.text.toString()
-                userObject.passwordTip = et_tip.text.toString()
-                userObject.password = et_password.text.toString()
+                if(result!=null){
+                    Toast.makeText(this, "Usuário já existente", Toast.LENGTH_LONG).show()
+                } else {
+                    val userObject = realm.createObject(UserModel::class.java, uuid)
+                    userObject.email = et_user.text.toString()
+                    userObject.passwordTip = et_tip.text.toString()
+                    userObject.password = et_password.text.toString()
+
+                    Toast.makeText(this, "Registrado com sucesso", Toast.LENGTH_LONG).show()
+                    finish()
+                }
 
                 realm.commitTransaction()
+
             } else {
                 Toast.makeText(this, "Formato de e-mail inválido", Toast.LENGTH_LONG).show()
             }

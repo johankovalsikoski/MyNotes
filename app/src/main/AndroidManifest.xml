@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kovalsikoski.johan.mynotes">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyNotesApplication"
         android:allowBackup="true"
@@ -20,6 +22,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".BaseActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4459e97dddc3c365887d654a8139c466f6d0d9eb" />
     </application>
 
 </manifest>

@@ -1,10 +1,13 @@
 package com.kovalsikoski.johan.mynotes
 
-import android.content.DialogInterface
+import android.content.*
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_main.*
+import android.os.IBinder
+import android.widget.Toast
+
 
 class MainActivity : BaseActivity(), NoteInputDialog.NoteInputDialogListener {
 
@@ -13,7 +16,7 @@ class MainActivity : BaseActivity(), NoteInputDialog.NoteInputDialogListener {
     private lateinit var adapter: MyNotesAdapter
     private lateinit var realm: Realm
     private lateinit var user: String
-
+    private lateinit var serviceConnection: ServiceConnection
     //REGION LIFE CYCLE
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +30,25 @@ class MainActivity : BaseActivity(), NoteInputDialog.NoteInputDialogListener {
         initRecyclerView()
         initFab()
         loadNotesFromRealm()
+    }
 
+    private fun startService(){
+        serviceConnection = object : ServiceConnection {
+            override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
+                val meuBinder = iBinder as MyBindService.MyBinder
+                val number = meuBinder.service.generateNumber()
+                Toast.makeText(this@MainActivity, "Número gerado: $number", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onServiceDisconnected(componentName: ComponentName) {}
+        }
+
+        val intent = Intent(this, MyBindService::class.java)
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    private fun stopService(){
+        unbindService(serviceConnection)
     }
 
     override fun onDestroy() {
@@ -112,6 +133,9 @@ class MainActivity : BaseActivity(), NoteInputDialog.NoteInputDialogListener {
         notesList.clear()
         adapter.clear()
         loadNotesFromRealm()
+
+        startService()
+        stopService()
     }
 
     override fun onNoteInputDialogNegativeButtonClicked(dialog: DialogInterface?) {
